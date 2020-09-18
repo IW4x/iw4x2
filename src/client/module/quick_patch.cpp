@@ -11,11 +11,6 @@ quick_patch::quick_patch()
 
 void quick_patch::post_unpack()
 {
-	quick_patch::initialize();
-}
-
-void quick_patch::initialize()
-{
 	// patch com_maxfps
 	game::native::Dvar_RegisterInt("com_maxfps", 85, 0, 1000, 0x1, "Cap frames per second"); // changed max value from 85 -> 1000
 

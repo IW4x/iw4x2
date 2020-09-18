@@ -7,7 +7,6 @@ public:
 	quick_patch();
 
 	void post_unpack() override;
-	static void initialize();
 private:
 
 };
