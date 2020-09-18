@@ -42,7 +42,7 @@ void game_console::print(const std::string& data)
 
 	printf("%s\n", data.data());
 
-	if (con.output.size() > 256)
+	if (con.output.size() > 1024)
 	{
 		con.output.pop_front();
 	}
@@ -334,7 +334,7 @@ void game_console::draw_output_window()
 	const auto width = (con.screen_max[0] - con.screen_min[0]) - 12.0f;
 	const auto height = ((con.screen_max[1] - con.screen_min[1]) - 32.0f) - 12.0f;
 
-	game::native::R_AddCmdDrawText("IW6 MP 3.15 build 2 Sat Sep 14 2013 03:58:30PM win64", 0x7FFFFFFF, console_font, x, ((height - 16.0f) + y) + console_font->pixelHeight, 1.0f, 1.0f, 0.0, color_iw6, 0);
+	game::native::R_AddCmdDrawText(game::native::Dvar_FindVar("version")->current.string, 0x7FFFFFFF, console_font, x, ((height - 16.0f) + y) + console_font->pixelHeight, 1.0f, 1.0f, 0.0, color_iw6, 0);
 
 	draw_output_scrollbar(x, y, width, height);
 	draw_output_text(x, y);
@@ -533,14 +533,14 @@ void game_console::cl_key_event_stub(int localClientNum, int key, int down)
 			}
 
 			//scroll through output
-			if (key == game::native::keyNum_t::K_MWHEELUP)
+			if (key == game::native::keyNum_t::K_MWHEELUP || key == game::native::keyNum_t::K_PGUP)
 			{
 				if (con.output.size() > con.visible_line_count && con.display_line_offset > 0)
 				{
 					con.display_line_offset--;
 				}
 			}
-			else if (key == game::native::keyNum_t::K_MWHEELDOWN)
+			else if (key == game::native::keyNum_t::K_MWHEELDOWN || key == game::native::keyNum_t::K_PGDN)
 			{
 				if (con.output.size() > con.visible_line_count && con.display_line_offset < (con.output.size() - con.visible_line_count))
 				{
@@ -550,7 +550,7 @@ void game_console::cl_key_event_stub(int localClientNum, int key, int down)
 
 			if (key == game::native::keyNum_t::K_ENTER)
 			{
-				game::native::Cbuf_AddText(0, utils::string::va("%s \n", &con.buffer[0]));
+				game::native::Cbuf_AddText(0, utils::string::va("%s \n", fixed_input.data()));
 
 				if (history_index != -1)
 				{
