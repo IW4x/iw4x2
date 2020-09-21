@@ -139,16 +139,9 @@ public:
 			utils::nt::raise_hard_exception();
 		});
 
-		//Patch r_znear "does not like being forced to be set at its default value fucks with rendering"
-		//game::native::Dvar_RegisterInt("r_znear", 4, 0, 4, 0x44, "near Z clip plane distance"); // keeping it at for as it can be used as wall hacks if set more
-
 		// Patch bg_compassshowenemies
 		// Keeping it so it cant be used for uav cheats for people
 		game::native::Dvar_RegisterInt("bg_compassShowEnemies", 0, 0, 0, 0x8C, "Whether enemies are visible on the compass at all times");
-
-		// igs_announcer
-		// set it to 3 to display both voice dlc announcers did only show 1
-		game::native::Dvar_RegisterInt("igs_announcer", 3, 3, 3, 0x0, "Show Announcer Packs. (Bitfield representing which announcer paks to show)");
 
 		// patch com_maxfps
 		// changed max value from 85 -> 1000
@@ -239,30 +232,6 @@ public:
 		utils::hook::nop(0x140383789, 13);
 		utils::hook::jump(0x140383789, g_speed_stub, true);
 		dvars::g_speed = game::native::Dvar_RegisterInt("g_speed", 190, 0, 999, 0, "Maximum player speed");
-
-		// add Unlock all Command - only does level for squad member 1 if people want level 60 on all squad members let me know and I can just add the rest of the squad members
-		command::add("unlockall", [](command::params&)
-			{
-
-			//only Mp
-			utils::hook::set<BYTE>(0x1445A3798, 0x0A);	// Prestige
-			utils::hook::set<int64_t>(0x1445A34A0, 5000000); // squad points
-			// squad member ranks
-			for (int i = 0; i < 10; i++)
-			{
-				utils::hook::set<short>(0x14459F857 + (0x564, i), 0x12C5);
-			}
-			//squad members unlocked
-			for (int i = 0; i < 9; i++)
-			{
-				utils::hook::set<short>(0x14459FD97 + (0x564, i), 0x0100);
-			}
-			//only Extinction
-			utils::hook::set<short>(0x1445A6B62, 9999);	// Teeth
-			utils::hook::set<BYTE>(0x1445A5F96, 25);	// Prestige
-			utils::hook::set<short>(0x1445A5F90, 27);	// level
-				
-		});
 	}
 
 	void patch_sp() const
