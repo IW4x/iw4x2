@@ -126,7 +126,10 @@ class patches final : public module
 public:
 	void post_unpack() override
 	{
-		
+		// igs_announcer
+		// set it to 3 to display both voice dlc announcers did only show 1
+		game::native::Dvar_RegisterInt("igs_announcer", 3, 3, 3, 0x0, "Show Announcer Packs. (Bitfield representing which announcer paks to show)");
+
 		// add quit command
 		command::add("quit", [](command::params&)
 		{
