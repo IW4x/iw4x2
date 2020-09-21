@@ -19,7 +19,6 @@ public:
 
 	void patch_mp() const
 	{
-
 		// add Unlock all Command
 		command::add("unlockall", [](command::params&)
 		{
