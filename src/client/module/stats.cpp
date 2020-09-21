@@ -40,7 +40,6 @@ public:
 			utils::hook::set<short>(0x1445A5F90, 27);	// level
 
 		});
-
 	}
 };
 
