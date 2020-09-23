@@ -15,7 +15,8 @@ namespace
 {
 	DiscordEventHandlers handlers;
 	DiscordRichPresence discordPresence;
-	const char* localization[] = { "Multiplayer", "Singleplayer", "In Menus", "Playin on %s" };
+	const char* localization[] = { "Multiplayer", "Singleplayer", "In Menus", "%s on %s", "Extinction", "Private match" };
+	auto ingame = false;
 
 	int get_player_count()
 	{
@@ -44,18 +45,20 @@ namespace
 		discordPresence.partySize = 0;
 		discordPresence.partyMax = 0;
 
-		discordPresence.details = localization[0];
+		discordPresence.details = game::native::Dvar_FindVar("g_gametype") ? strstr(game::native::Dvar_FindVar("g_gametype")->current.string, "aliens") ? localization[4] : localization[0] : "";
 		discordPresence.state = localization[2];
-
 
 		if (game::native::SV_Loaded())
 		{
 			discordPresence.partySize = get_player_count();
 			discordPresence.partyMax = game::native::Dvar_FindVar("sv_maxclients")->current.integer;
 
-			discordPresence.details = localization[0];
-			discordPresence.state = utils::string::va(localization[3], game::native::Dvar_FindVar("mapname")->current.string);
+			discordPresence.state = strstr(game::native::Dvar_FindVar("net_ip")->current.string, "localhost") ? localization[5] : game::native::Dvar_FindVar("sv_hostname")->current.string;
+			discordPresence.details = utils::string::va(localization[3], game::native::Dvar_FindVar("party_gametype")->current.string, game::native::Dvar_FindVar("party_mapname")->current.string);
 		}
+
+		!ingame && (discordPresence.startTimestamp = game::native::SV_Loaded() ? std::time(0) : NULL);
+		ingame = game::native::SV_Loaded();
 
 		Discord_UpdatePresence(&discordPresence);
 	}
