@@ -15,7 +15,7 @@ namespace
 {
 	DiscordEventHandlers handlers;
 	DiscordRichPresence discordPresence;
-	const char* localization[] = { "Multiplayer", "Singleplayer", "In Menus", "%s on %s", "Extinction", "Private match" };
+	const char* localization[] = { "Multiplayer", "Singleplayer", "Main menu", "%s on %s", "Extinction", "Private match" };
 	auto ingame = false;
 
 	int get_player_count()
@@ -57,7 +57,10 @@ namespace
 			discordPresence.details = utils::string::va(localization[3], game::native::Dvar_FindVar("party_gametype")->current.string, game::native::Dvar_FindVar("party_mapname")->current.string);
 		}
 
-		!ingame && (discordPresence.startTimestamp = game::native::SV_Loaded() ? std::time(0) : NULL);
+
+		if (!ingame)
+			discordPresence.startTimestamp = game::native::SV_Loaded() ? std::time(0) : NULL;
+
 		ingame = game::native::SV_Loaded();
 
 		Discord_UpdatePresence(&discordPresence);
