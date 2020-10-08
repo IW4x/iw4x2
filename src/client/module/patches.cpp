@@ -59,6 +59,9 @@ public:
 			utils::nt::raise_hard_exception();
 		});
 
+		// Keep this at 1 so it cannot be used 
+		game::Dvar_RegisterInt("r_fog", 1, 1, 1, 0x1, "Shows the maps fog");
+		
 		// Keeping it so it cant be used for uav cheats for people
 		game::Dvar_RegisterInt("bg_compassShowEnemies", 0, 0, 0, 0x8C, "Whether enemies are visible on the compass at all times");
 
