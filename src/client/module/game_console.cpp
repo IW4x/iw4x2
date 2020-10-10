@@ -6,6 +6,7 @@
 #include "game/game.hpp"
 #include "game/dvars.hpp"
 #include "module/command.hpp"
+#include "logs.hpp"
 
 #include "utils/string.hpp"
 
@@ -42,6 +43,7 @@ void game_console::print(const std::string& data)
 	con.output.push_back(data);
 
 	printf("%s\n", data.data());
+	logs::game_console::log(data.data());
 
 	if (con.output.size() > 1024)
 	{
