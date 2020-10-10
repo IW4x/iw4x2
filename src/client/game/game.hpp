@@ -18,6 +18,9 @@ namespace game
 	typedef void (*Conbuf_AppendText_t)(const char* message);
 	extern Conbuf_AppendText_t Conbuf_AppendText;
 
+	typedef void (*Com_Error_t)(int type, const char* message, ...);
+	extern Com_Error_t Com_Error;
+
 	typedef void (*Cbuf_AddText_t)(int localClientNum, const char* text);
 	extern Cbuf_AddText_t Cbuf_AddText;
 

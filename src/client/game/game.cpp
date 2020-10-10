@@ -6,6 +6,7 @@ namespace game
 	Sys_ShowConsole_t Sys_ShowConsole;
 
 	Com_Frame_Try_Block_Function_t Com_Frame_Try_Block_Function;
+	Com_Error_t Com_Error;
 
 	Conbuf_AppendText_t Conbuf_AppendText;
 
@@ -135,6 +136,7 @@ namespace game
 			Conbuf_AppendText = Conbuf_AppendText_t(SELECT_VALUE(0x14043DDE0, 0x1405028C0));
 
 			Com_Frame_Try_Block_Function = Com_Frame_Try_Block_Function_t(SELECT_VALUE(0x1403BC980, 0x1404131A0));
+			Com_Error = Com_Error_t(SELECT_VALUE(0x1403BBFF0, 0x140412740));
 
 			Cbuf_AddText = Cbuf_AddText_t(SELECT_VALUE(0x1403B3050, 0x1403F6B50));
 
