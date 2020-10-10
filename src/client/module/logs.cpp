@@ -3,9 +3,6 @@
 
 #include "game/game.hpp"
 
-#include "game_console.hpp"
-#include "command.hpp"
-
 #include "utils/io.hpp"
 #include "utils/string.hpp"
 
