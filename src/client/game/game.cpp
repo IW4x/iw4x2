@@ -7,6 +7,7 @@ namespace game
 
 	Com_Frame_Try_Block_Function_t Com_Frame_Try_Block_Function;
 	Com_Error_t Com_Error;
+	Com_Parse_t Com_Parse;
 
 	Conbuf_AppendText_t Conbuf_AppendText;
 
@@ -50,6 +51,8 @@ namespace game
 
 	SV_GameSendServerCommand_t SV_GameSendServerCommand;
 	SV_Loaded_t SV_Loaded;
+
+	SV_StartMap_t SV_StartMap;
 
 	Sys_Milliseconds_t Sys_Milliseconds;
 	Sys_SendPacket_t Sys_SendPacket;
@@ -137,6 +140,7 @@ namespace game
 
 			Com_Frame_Try_Block_Function = Com_Frame_Try_Block_Function_t(SELECT_VALUE(0x1403BC980, 0x1404131A0));
 			Com_Error = Com_Error_t(SELECT_VALUE(0x1403BBFF0, 0x140412740));
+			Com_Parse = Com_Parse_t(SELECT_VALUE(0, 0x1404F50E0));
 
 			Cbuf_AddText = Cbuf_AddText_t(SELECT_VALUE(0x1403B3050, 0x1403F6B50));
 
@@ -178,6 +182,7 @@ namespace game
 
 			SV_GameSendServerCommand = SV_GameSendServerCommand_t(SELECT_VALUE(0x140490F40, 0x1404758C0));
 			SV_Loaded = SV_Loaded_t(SELECT_VALUE(0x140491820, 0x1404770C0));
+			SV_StartMap = SV_StartMap_t(SELECT_VALUE(0, 0x140470170));
 
 			Sys_Milliseconds = Sys_Milliseconds_t(SELECT_VALUE(0x14043D2A0, 0x140501CA0));
 			Sys_SendPacket = Sys_SendPacket_t(SELECT_VALUE(0x14043D000, 0x140501A00));

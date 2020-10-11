@@ -15,6 +15,9 @@ namespace game
 	typedef void (*Com_Frame_Try_Block_Function_t)();
 	extern Com_Frame_Try_Block_Function_t Com_Frame_Try_Block_Function;
 
+	typedef const char* (*Com_Parse_t)(char const **);
+	extern Com_Parse_t Com_Parse;
+
 	typedef void (*Conbuf_AppendText_t)(const char* message);
 	extern Conbuf_AppendText_t Conbuf_AppendText;
 
@@ -110,8 +113,12 @@ namespace game
 
 	typedef void (*SV_GameSendServerCommand_t)(int, int, const char*);
 	extern SV_GameSendServerCommand_t SV_GameSendServerCommand;
+
 	typedef bool (*SV_Loaded_t)();
 	extern SV_Loaded_t SV_Loaded;
+
+	typedef void (*SV_StartMap_t)(int localClientNum, const char* map, bool mapIsPreloaded);
+	extern SV_StartMap_t SV_StartMap;
 
 	typedef int (*Sys_Milliseconds_t)();
 	extern Sys_Milliseconds_t Sys_Milliseconds;

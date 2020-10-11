@@ -69,7 +69,14 @@ public:
 		game::Dvar_RegisterInt("igs_announcer", 3, 3, 3, 0x0, "Show Announcer Packs. (Bitfield representing which announcer paks to show)");
 
 		// changed max value from 85 -> 1000
-		game::Dvar_RegisterInt("com_maxfps", 85, 0, 1000, 0x1, "Cap frames per second");
+		if (game::environment::is_dedi())
+		{
+			game::Dvar_RegisterInt("com_maxfps", 0, 0, 0, 0, "Cap frames per second");
+		}
+		else
+		{
+			game::Dvar_RegisterInt("com_maxfps", 85, 0, 1000, 0x1, "Cap frames per second");
+		}
 
 		// changed max value from 80.0f -> 120.f
 		game::Dvar_RegisterFloat("cg_fov", 65.0f, 65.0f, 120.0f, 0x1, "The field of view angle in degrees");

@@ -51,6 +51,18 @@ void party::post_unpack()
 		return;
 	}
 
+	command::add("map", [](command::params& argument)
+	{
+		if (argument.size() != 2)
+		{
+			return;
+		}
+
+		// TODO: Figure out correct party type
+		game::Cmd_ExecuteSingleCommand(0, 0, "xblive_privatematch 1\n");
+		game::SV_StartMap(0, argument[1], false);
+	});
+
 	command::add("connect", [](command::params& argument)
 	{
 		if (argument.size() != 2)

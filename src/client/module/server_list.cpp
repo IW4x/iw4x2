@@ -70,6 +70,11 @@ void refresh_server_list()
 	// refresh server list here
 }
 
+void join_server(int, int, const int index)
+{
+	printf("Join %d ...\n", index);
+}
+
 bool server_list_refresher()
 {
 	if (server_list::update_server_list)
@@ -123,6 +128,8 @@ void server_list::post_unpack()
 
 	// replace UI_RunMenuScript call in LUI_CoD_LuaCall_RefreshServerList to our refresh_servers
 	utils::hook::call(0x1401E7171, &refresh_server_list);
+	utils::hook::call(0x1401E7616, &join_server);
+	utils::hook::nop(0x1401E7635, 5);
 
 	// do feeder stuff
 	utils::hook::call(0x1401E7225, &ui_feeder_count);

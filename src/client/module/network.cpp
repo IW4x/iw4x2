@@ -145,6 +145,9 @@ void network::post_unpack()
 	// increase cl_maxpackets
 	utils::hook::set<uint8_t>(0x1402C8083, 125);
 	utils::hook::set<uint8_t>(0x1402C808C, 125);
+
+	// ignore impure client
+	utils::hook::jump(0x140472671, reinterpret_cast<void*>(0x1404726F9));
 }
 
 REGISTER_MODULE(network)

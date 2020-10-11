@@ -101,4 +101,6 @@ private:
 	}
 };
 
+#ifndef DEV_BUILD
 REGISTER_MODULE(discord)
+#endif

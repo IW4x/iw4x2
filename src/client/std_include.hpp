@@ -1,6 +1,8 @@
 #pragma once
 
-#define BINARY_PAYLOAD_SIZE 0x60000000
+// MP: 0x0B459A00
+// SP: 0x079C6A00
+#define BINARY_PAYLOAD_SIZE 0x0B500000
 
 #pragma warning(push)
 #pragma warning(disable: 4100)
