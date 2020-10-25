@@ -6,6 +6,7 @@
 #include "command.hpp"
 #include "utils/hook.hpp"
 #include "game/game.hpp"
+#include "utils/string.hpp"
 
 namespace dedicated
 {
@@ -250,6 +251,19 @@ namespace dedicated
 			scheduler::once(send_heartbeat, scheduler::pipeline::server);
 			scheduler::loop(send_heartbeat, scheduler::pipeline::server, 2min);
 			command::add("heartbeat", send_heartbeat);
+
+			command::add("clientkick", [](command::params& params)
+			{
+				if (params.size() < 3)
+				{
+					return;
+				}
+
+				auto client = atoi(params.get(1));
+				std::string reason = params.join(2);
+
+				game::SV_GameSendServerCommand(client, 0, utils::string::va("r \"%s\"", reason.data()));
+			});
 		}
 	};
 }
