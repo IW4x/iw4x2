@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v1.0.0] - 2020-11-03
+
+### Fixed
+
+-   2nd octet of the IP-address in status response is wrong. [#150](https://github.com/XLabsProject/iw6x-client/issues/150)
+-   Arxan exceptions cause performance issues [#144](https://github.com/XLabsProject/iw6x-client/issues/144)
+
+### Added
+
+-   Disable whitelist protection on /bind command on console. [#151](https://github.com/XLabsProject/iw6x-client/issues/151)
+
+### Pull Requests
+
+-   ScrCmd_SetSlowMotion patches [#157](https://github.com/XLabsProject/iw6x-client/pull/157) ([@skiff](https://github.com/skiff))
+-   added binding [#152](https://github.com/XLabsProject/iw6x-client/pull/152) ([@Jemal](https://github.com/Jemal))
+-   Server double clicks, discord presence fix and input module [#148](https://github.com/XLabsProject/iw6x-client/pull/148) ([@Jemal](https://github.com/Jemal))
+-   Add clientkick and kick commands [#147](https://github.com/XLabsProject/iw6x-client/pull/147) ([@Joelrau](https://github.com/Joelrau))
+
 ## [v1.0.0-rc.1] - 2020-10-28
 
 ### Fixed
@@ -84,6 +102,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 -   Add setviewpos, setviewang commands, add viewpos to drawfps [#38](https://github.com/XLabsProject/iw6x-client/pull/38) ([@fedddddd](https://github.com/fedddddd))
 -   Make stats look better [#36](https://github.com/XLabsProject/iw6x-client/pull/36) ([@FragsAreUs](https://github.com/FragsAreUs))
 
-[Unreleased]: https://github.com/XLabsProject/iw6x-client/compare/v1.0.0-rc.1...HEAD
+[Unreleased]: https://github.com/XLabsProject/iw6x-client/compare/v1.0.0...HEAD
+
+[v1.0.0]: https://github.com/XLabsProject/iw6x-client/compare/v1.0.0-rc.1...v1.0.0
 
 [v1.0.0-rc.1]: https://github.com/XLabsProject/iw6x-client/compare/22c834e0655795870621ce505ea189ae522e8223...v1.0.0-rc.1
