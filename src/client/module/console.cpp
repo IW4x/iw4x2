@@ -1,4 +1,5 @@
 #include <std_include.hpp>
+#include "console.hpp"
 #include "loader/module_loader.hpp"
 #include "game/game.hpp"
 #include "scheduler.hpp"
@@ -56,7 +57,7 @@ namespace console
 			if (!game::environment::is_dedi())
 			{
 				// Hide that shit
-				ShowWindow(*reinterpret_cast<HWND*>((SELECT_VALUE(0x145A7B490, 0x147AD1DB0))), SW_MINIMIZE);
+				ShowWindow(console::get_window(), SW_MINIMIZE);
 			}
 
 			// Async console is not ready yet :/
@@ -161,6 +162,28 @@ namespace console
 			std::this_thread::yield();
 		}
 	};
+	
+	HWND get_window()
+	{
+		return *reinterpret_cast<HWND*>((SELECT_VALUE(0x145A7B490, 0x147AD1DB0)));
+	}
+
+	void set_title(std::string title)
+	{
+		SetWindowText(get_window(), title.c_str());
+	}
+
+	void set_size(int width, int height)
+	{
+		RECT rect;
+		GetWindowRect(get_window(), &rect);
+
+		SetWindowPos(get_window(), 0, rect.left, rect.top, width, height, 0);
+
+		// TODO: fill the SP address(I didn't downloaded the SP part of the game).
+		auto logoWindow = *reinterpret_cast<HWND*>(0x147AD1DC0);
+		SetWindowPos(logoWindow, 0, 5, 5, width - 25, 60, 0);
+	}
 }
 
 REGISTER_MODULE(console::module)
