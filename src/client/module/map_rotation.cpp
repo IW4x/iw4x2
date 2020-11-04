@@ -104,14 +104,7 @@ namespace map_rotation
 				}
 			}
 
-			if (game::SV_Loaded())
-			{
-				game::SV_FastRestart();
-			}
-			else
-			{
-				launch_default_map();
-			}
+			launch_default_map();
 		}
 
 		void trigger_map_rotation()

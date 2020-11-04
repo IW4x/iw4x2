@@ -11,27 +11,44 @@ namespace bots
 {
 	namespace
 	{
+		void bot_team(const int entity_num)
+		{
+			if (game::SV_BotIsBot(game::mp::g_entities[entity_num].s.clientNum))
+			{
+				if (game::mp::g_entities[entity_num].client->sess.cs.team != game::mp::team_t::TEAM_ALLIES &&
+					game::mp::g_entities[entity_num].client->sess.cs.team != game::mp::team_t::TEAM_AXIS)
+				{
+					// schedule the select team call
+					scheduler::once([entity_num]()
+					{
+						game::SV_ExecuteClientCommand(&game::mp::svs_clients[entity_num],
+							utils::string::va("lui 68 2 %i", *game::mp::sv_serverId_value),
+							false);
+
+						// scheduler the select class call
+						scheduler::once([entity_num]()
+						{
+							game::SV_ExecuteClientCommand(&game::mp::svs_clients[entity_num],
+								utils::string::va("lui 5 %i %i", (rand() % 5) + 10,
+									*game::mp::sv_serverId_value), false);
+						}, scheduler::pipeline::server, 1s);
+					}, scheduler::pipeline::server, 1s);
+				}
+
+				scheduler::once([entity_num]()
+				{
+					bot_team(entity_num);
+				}, scheduler::pipeline::server, 3s);
+			}
+		}
+
 		void spawn_bot(const int entity_num)
 		{
 			scheduler::once([entity_num]()
 			{
 				game::SV_SpawnTestClient(&game::mp::g_entities[entity_num]);
 
-				// schedule the select team call
-				scheduler::once([entity_num]()
-				{
-					game::SV_ExecuteClientCommand(&game::mp::svs_clients[entity_num],
-					                              utils::string::va("lui 68 2 %i", *game::mp::sv_serverId_value),
-					                              false);
-
-					// scheduler the select class call
-					scheduler::once([entity_num]()
-					{
-						game::SV_ExecuteClientCommand(&game::mp::svs_clients[entity_num],
-						                              utils::string::va("lui 5 %i %i", (rand() % 5) + 10,
-						                                                *game::mp::sv_serverId_value), false);
-					}, scheduler::pipeline::server, 1s);
-				}, scheduler::pipeline::server, 1s);
+				bot_team(entity_num);
 			}, scheduler::pipeline::server, 1s);
 		}
 
