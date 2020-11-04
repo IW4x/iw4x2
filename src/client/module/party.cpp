@@ -168,6 +168,14 @@ namespace party
 				start_map(argument[1]);
 			});
 
+			command::add("fast_restart", []()
+			{
+				if (game::SV_Loaded())
+				{
+					game::SV_FastRestart();
+				}
+			});
+
 			command::add("connect", [](command::params& argument)
 			{
 				if (argument.size() != 2)

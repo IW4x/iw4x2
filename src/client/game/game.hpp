@@ -187,6 +187,9 @@ namespace game
 	typedef void (*SV_ExecuteClientCommand_t)(mp::client_t*, const char*, int);
 	extern SV_ExecuteClientCommand_t SV_ExecuteClientCommand;
 
+	typedef void (*SV_FastRestart_t)();
+	extern SV_FastRestart_t SV_FastRestart;
+
 	typedef const char* (*SV_GetGuid_t)(int clientNum);
 	extern SV_GetGuid_t SV_GetGuid;
 
