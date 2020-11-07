@@ -182,6 +182,11 @@ namespace patches
 
 			return game::Sys_Milliseconds();
 		}
+
+		game::Font_s* get_chat_font_handle()
+		{
+			return game::R_RegisterFont("fonts/bigFont");
+		}
 	}
 
 	class module final : public module_interface
@@ -318,6 +323,11 @@ namespace patches
 
 			// Enable DLC items, extra loadouts and map selection in extinction
 			dvar_register_int_hook.create(0x1404EE270, &dvar_register_int);
+
+			// patch game chat on resolutions higher than 1080p to use the right font
+			utils::hook::call(0x14025C825, get_chat_font_handle);
+			utils::hook::call(0x1402BC42F, get_chat_font_handle);
+			utils::hook::call(0x1402C3699, get_chat_font_handle);
 		}
 
 		void patch_sp() const

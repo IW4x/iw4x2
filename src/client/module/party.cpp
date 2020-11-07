@@ -143,6 +143,7 @@ namespace party
 		}
 		else
 		{
+			printf("Starting map: %s\n", mapname.data());
 			switch_gamemode_if_necessary(get_dvar_string("g_gametype"));
 			game::SV_StartMapForParty(0, mapname.data(), false, false);
 		}
