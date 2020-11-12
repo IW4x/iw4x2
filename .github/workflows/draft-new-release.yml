@@ -57,15 +57,12 @@ jobs:
           path: ./CHANGELOG.md
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v3
+        uses: repo-sync/pull-request@v2
         with:
-          token: ${{ secrets.XLABS_CI_GITHUB_TOKEN }}
-          delete-branch: true
-          author: "${{ secrets.XLABS_CI_NAME }} <${{ secrets.XLABS_CI_EMAIL }}>"
-          committer: "${{ secrets.XLABS_CI_NAME }} <${{ secrets.XLABS_CI_EMAIL }}>"
-          branch: "release/${{ steps.normalize_version.outputs.version }}"
-          base: master
-          body: |
+          github_token: ${{ secrets.XLABS_CI_GITHUB_TOKEN }}
+          source_branch: "release/${{ steps.normalize_version.outputs.version }}"
+          destination_branch: "master"
+          pr_body: |
             This Pull Request is for the release of IW6x ${{ steps.normalize_version.outputs.version }} and was [automatically created by a workflow](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}) triggered by @${{ github.actor }}.
 
             Commit [`${{ steps.make-commit.outputs.commit }}`](https://github.com/${{ github.repository }}/commit/${{ steps.make-commit.outputs.commit }}) includes an update to the changelog to list the new version with its changes.
@@ -79,8 +76,5 @@ jobs:
             These changes will be included in the release:
 
             ${{ steps.changelog_reader.outputs.changes }}
-          title: Release ${{ steps.changelog_reader.outputs.version }}
-          labels: |
-            release
-          team-reviewers: |
-            developers
+          pr_title: Release ${{ steps.changelog_reader.outputs.version }}
+          pr_label: release
