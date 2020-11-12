@@ -43,8 +43,10 @@ jobs:
       - name: Commit changelog
         id: make-commit
         run: |
+          git checkout -b "release/${{ steps.normalize_version.outputs.version }}"
           git add CHANGELOG.md
           git commit -S -m "Prepare release ${{ steps.normalize_version.outputs.version }}"
+          git push -u origin "release/${{ steps.normalize_version.outputs.version }}"
 
           echo "::set-output name=commit::$(git rev-parse HEAD)"
 
