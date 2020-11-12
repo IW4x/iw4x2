@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v1.0.2] - 2020-11-12
+
 ### Fixed
 
 -   SP crashes on mouse scroll [#186](https://github.com/XLabsProject/iw6x-client/issues/186)
@@ -117,7 +119,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 -   Add setviewpos, setviewang commands, add viewpos to drawfps [#38](https://github.com/XLabsProject/iw6x-client/pull/38) ([@fedddddd](https://github.com/fedddddd))
 -   Make stats look better [#36](https://github.com/XLabsProject/iw6x-client/pull/36) ([@FragsAreUs](https://github.com/FragsAreUs))
 
-[Unreleased]: https://github.com/XLabsProject/iw6x-client/compare/v1.0.1...HEAD
+[Unreleased]: https://github.com/XLabsProject/iw6x-client/compare/v1.0.2...HEAD
+
+[v1.0.2]: https://github.com/XLabsProject/iw6x-client/compare/v1.0.1...v1.0.2
 
 [v1.0.1]: https://github.com/XLabsProject/iw6x-client/compare/v1.0.0...v1.0.1
 
