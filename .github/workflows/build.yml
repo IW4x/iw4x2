@@ -146,7 +146,7 @@ jobs:
         id: create_release
         uses: actions/create-release@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.XLABS_CI_GITHUB_TOKEN }}
         with:
           tag_name: ${{ steps.changelog_reader.outputs.version }}
           release_name: ${{ steps.changelog_reader.outputs.version }}
@@ -158,7 +158,7 @@ jobs:
         id: upload-release-zip
         uses: actions/upload-release-asset@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.XLABS_CI_GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ${{ github.workspace }}/iw6x-${{ steps.changelog_reader.outputs.version }}.zip
@@ -169,7 +169,7 @@ jobs:
         id: upload-release-zip-signature
         uses: actions/upload-release-asset@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.XLABS_CI_GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ${{ github.workspace }}/iw6x-${{ steps.changelog_reader.outputs.version }}.zip.sig
@@ -182,7 +182,7 @@ jobs:
       - name: Create Pull Request to merge master back into develop
         uses: peter-evans/create-pull-request@v3
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.XLABS_CI_GITHUB_TOKEN }}
         with:
           delete-branch: false
           author: "${{ secrets.XLABS_CI_NAME }} <${{ secrets.XLABS_CI_EMAIL }}>"
